@@ -15,17 +15,15 @@ import { debounceTime } from 'rxjs';
 export class FormGroupComponent {
   form: FormGroup | any;
 
-  constructor(
-    private  formBuilder: FormBuilder
-  ) {
+  constructor(private formBuilder: FormBuilder) {
     this.buildForm();
   }
 
   private buildForm() {
-    this.form =this.formBuilder.group({
+    this.form = this.formBuilder.group({
       name: ['', [Validators.required]],
       date: ['', [Validators.required]],
-      email: ['', [Validators.email]],
+      email: ['', [Validators.email, Validators.required]],
       edad: ['', [Validators.min(18), Validators.required]],
       text: ['', [Validators.maxLength(20), Validators.required]],
       category: ['', [Validators.required]],
@@ -37,11 +35,17 @@ export class FormGroupComponent {
     });
   }
 
-  enviarForm(event: Event){
-    event.preventDefault()
-    if (this.form.valid){
-    const value = this.form.value
-    console.log(value)
+  enviarForm(event: Event) {
+    event.preventDefault();
+    if (this.form.valid) {
+      const value = this.form.value;
+      console.log(value);
+    } else {
+      this.form.markAllAsTouched();
     }
+  }
+
+  get emailField() {
+    return this.form.get('email');
   }
 }

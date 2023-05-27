@@ -21,6 +21,14 @@
     Email: <br />
     <input type="eamil" formControlName="email" />
   </p>
+  <div *ngIf="emailField.errors && emailField.touched">
+    <p *ngIf="emailField.hasError('required')">
+      Este campo es requerido
+    </p>
+    <p *ngIf="form.get('email').hasError('email')">
+      El campo del Email no es valido
+    </p>
+  </div>
   <p>
     Edad: <br />
     <input type="number" formControlName="edad" />
@@ -69,5 +77,5 @@
     formControlName="gender"
     value="Otro" /> Otro <br>
   </p>
-  <button [disabled]="form.invalid" type="submit">Enviar</button>
+  <button type="submit">Enviar</button>
 </form>
