@@ -1,0 +1,73 @@
+<form [formGroup]="form" (ngSubmit)="enviarForm($event)">
+  <p>
+    Name: <br />
+    <input type="text" formControlName="name" />
+  </p>
+  <div *ngIf="form.get('name').errors && form.get('name').touched">
+    <p *ngIf="form.get('name').hasError('required')">
+      El nombre es requerido
+    </p>
+  </div>
+  <p>
+    Fecha: <br />
+    <input type="date" formControlName="date" />
+  </p>
+  <div *ngIf="form.get('date').errors && form.get('date').touched">
+    <p *ngIf="form.get('date').hasError('required')">
+      Este campo es requerido
+    </p>
+  </div>
+  <p>
+    Email: <br />
+    <input type="eamil" formControlName="email" />
+  </p>
+  <p>
+    Edad: <br />
+    <input type="number" formControlName="edad" />
+  </p>
+  <div *ngIf="form.get('edad').errors && form.get('edad').touched">
+    <p *ngIf="form.get('edad').hasError('required')">
+      Este campo es requerido
+    </p>
+    <p *ngIf="form.get('edad').hasError('min')">
+      La edad miníma es de 18 años
+    </p>
+  </div>
+  <p>
+    Text largo: <br />
+    <textarea cols="30" rows="10" formControlName="text"></textarea>
+    {{form.get('text').value.length}}/20
+  </p>
+  <div *ngIf="form.get('text').errors && form.get('text').touched">
+    <p *ngIf="form.get('text').hasError('required')">
+      Es un campo requerido
+    </p>
+    <p *ngIf="form.get('text').hasError('maxlength')">
+      El máximo de caracteres es 20 letras
+    </p>
+  </div>
+  <p>
+    Categoria: <br />
+    <select formArrayName="category">
+      <option value="1">Category 1</option>
+      <option value="2">Category 2</option>
+      <option value="3">Category 3</option>
+    </select>
+  </p>
+  <p>
+    Genero: <br />
+    <input type="radio"
+    name="gender"
+    formControlName="gender"
+    value="Hombre" /> Male <br>
+    <input type="radio"
+    name="gender"
+    formControlName="gender"
+    value="Mujer" /> Mujer <br>
+    <input type="radio"
+    name="gender"
+    formControlName="gender"
+    value="Otro" /> Otro <br>
+  </p>
+  <button [disabled]="form.invalid" type="submit">Enviar</button>
+</form>
